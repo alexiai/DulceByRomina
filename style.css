@@ -106,6 +106,14 @@ em { color: var(--blue); font-style: italic; }
 .buy-row button:hover { background: var(--blue-dark); }
 .buy-row svg { width: 14px; height: 14px; }
 
+/* Selector de greutate la torturi */
+.kg-stepper { display: flex; align-items: center; margin: 0 0 14px; border: 1px solid var(--blue-brand); }
+.kg-stepper button { flex: none; width: 46px; height: 42px; display: grid; place-items: center; border: 0; background: var(--pink-light); color: var(--blue-dark); transition: background .2s; }
+.kg-stepper button:hover:not(:disabled) { background: var(--pink); }
+.kg-stepper button:disabled { opacity: .35; cursor: not-allowed; }
+.kg-stepper svg { width: 14px; height: 14px; }
+.kg-value { flex: 1; text-align: center; font-size: var(--fs-sm); font-weight: 600; letter-spacing: .08em; color: var(--blue-dark); }
+
 .singles-section { background: #fcfcfc; }
 .single-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .compact .product-photo { height: 315px; }

@@ -16,19 +16,23 @@ const CONFIG = {
     // Câte zile înainte trebuie comandat un tort / alte produse.
     cakeLeadDays: 2,
     otherLeadDays: 1,
+    // Torturi: greutatea pe care o poate alege clientul (kg)
+    cakeMinKg: 1,
+    cakeMaxKg: 4,
+    cakeStepKg: 0.5,
     // Estimator evenimente: lei per invitat
-    perGuest: { "Nuntă": 48, "Botez": 42, "Aniversare": 42, "Corporate": 42 },
+    perGuest: { "Nuntă": 48, "Botez": 42, "Aniversare": 42, "Corporate": 42, "Altceva": 42 },
     estimateMaxFactor: 1.25,
 };
 
 /* ---------- Produse ---------- */
 const cakes = [
-    { id: 1, name: "Tort Trio Chocolate", description: "Blat cacao, mousse de ciocolată în trei texturi", price: 189, image: "images/cake1.jpg", badge: "Bestseller", weight: "1.2 KG", type: "cake" },
-    { id: 2, name: "Tort Vanilla Berry", description: "Vanilie de Madagascar, cremă fină, fructe roșii", price: 179, image: "images/cake2.jpg", badge: "Nou", weight: "1.2 KG", type: "cake" },
-    { id: 3, name: "Tort Raspberry Noir", description: "Ciocolată neagră, zmeură, crocant de migdale", price: 198, image: "images/cake3.jpg", weight: "1.4 KG", type: "cake" },
-    { id: 4, name: "Tort Pistachio Cloud", description: "Fistic copt, vanilie, blat pufos de migdale", price: 215, image: "images/cake4.jpg", weight: "1.2 KG", type: "cake" },
-    { id: 5, name: "Tort Caramel Fleur de Sel", description: "Caramel sărat, ciocolată cu lapte, alune", price: 195, image: "images/cake5.jpg", weight: "1.3 KG", type: "cake" },
-    { id: 6, name: "Tort Tiramisu", description: "Mascarpone, cafea de specialitate, cacao", price: 175, image: "images/cake6.jpg", weight: "1.2 KG", type: "cake" },
+    { id: 1, name: "Tort Trio Chocolate", description: "Blat cacao, mousse de ciocolată în trei texturi", price: 189, image: "images/cake1.jpg", badge: "Bestseller", baseKg: 1.2, type: "cake" },
+    { id: 2, name: "Tort Vanilla Berry", description: "Vanilie de Madagascar, cremă fină, fructe roșii", price: 179, image: "images/cake2.jpg", badge: "Nou", baseKg: 1.2, type: "cake" },
+    { id: 3, name: "Tort Raspberry Noir", description: "Ciocolată neagră, zmeură, crocant de migdale", price: 198, image: "images/cake3.jpg", baseKg: 1.4, type: "cake" },
+    { id: 4, name: "Tort Pistachio Cloud", description: "Fistic copt, vanilie, blat pufos de migdale", price: 215, image: "images/cake4.jpg", baseKg: 1.2, type: "cake" },
+    { id: 5, name: "Tort Caramel Fleur de Sel", description: "Caramel sărat, ciocolată cu lapte, alune", price: 195, image: "images/cake5.jpg", baseKg: 1.3, type: "cake" },
+    { id: 6, name: "Tort Tiramisu", description: "Mascarpone, cafea de specialitate, cacao", price: 175, image: "images/cake6.jpg", baseKg: 1.2, type: "cake" },
 ];
 
 const singles = [
@@ -45,6 +49,35 @@ const boxes = [
 ];
 
 const allProducts = [...cakes, ...singles, ...boxes];
+
+/* ---------- Torturi: greutatea aleasă de client ---------- */
+const byId = (id) => allProducts.find((p) => p.id === id);
+// prețul crește/scade proporțional cu greutatea (preț pe kg = preț / greutate standard)
+const cakePrice = (p, kg) => Math.round((p.price / p.baseKg) * kg);
+const fmtKg = (kg) => kg.toFixed(1);
+// greutatea aleasă pe cardul fiecărui tort; pornește de la greutatea standard
+const kgState = Object.fromEntries(cakes.map((p) => [p.id, p.baseKg]));
+
+// + / - sar la următorul multiplu de cakeStepKg (1.2 -> 1.5 -> 2.0), între min și max
+function stepKg(kg, dir) {
+    const step = CONFIG.cakeStepKg, eps = 1e-6;
+    const next = dir > 0
+        ? (Math.floor(kg / step + eps) + 1) * step
+        : (Math.ceil(kg / step - eps) - 1) * step;
+    return Math.min(CONFIG.cakeMaxKg, Math.max(CONFIG.cakeMinKg, Math.round(next * 100) / 100));
+}
+
+function changeKg(id, dir) {
+    kgState[id] = stepKg(kgState[id], dir);
+    const kg = kgState[id];
+    const card = document.querySelector(`[data-cake="${id}"]`);
+    if (!card) return;
+    card.querySelector(".kg-value").textContent = `${fmtKg(kg)} KG`;
+    card.querySelector(".js-price").textContent = `${cakePrice(byId(id), kg)} LEI`;
+    const [minus, plus] = card.querySelectorAll(".kg-stepper button");
+    minus.disabled = kg <= CONFIG.cakeMinKg;
+    plus.disabled = kg >= CONFIG.cakeMaxKg;
+}
 
 /* ---------- Utilitare ---------- */
 const $ = (sel) => document.querySelector(sel);
@@ -65,22 +98,34 @@ function openWhatsApp(message) {
 
 /* ---------- Randare produse ---------- */
 function productCard(p, compact) {
+    const isCake = p.type === "cake";
+    const kg = isCake ? kgState[p.id] : null;
+    const price = isCake ? cakePrice(p, kg) : p.price;
     return `
-    <article class="product-card${compact ? " compact" : ""}">
+    <article class="product-card${compact ? " compact" : ""}"${isCake ? ` data-cake="${p.id}"` : ""}>
       <div class="product-photo">
         <img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy" />
         ${p.badge ? `<span class="photo-badge">${escapeHtml(p.badge)}</span>` : ""}
         <button class="quick-add" type="button" data-add="${p.id}" aria-label="Adaugă ${escapeHtml(p.name)}">${ICON.plus}</button>
       </div>
       <div class="product-info">
-        <div class="product-title-row"><h3>${escapeHtml(p.name)}</h3><span>${escapeHtml(p.weight)}</span></div>
+        <div class="product-title-row"><h3>${escapeHtml(p.name)}</h3>${isCake ? "" : `<span>${escapeHtml(p.weight)}</span>`}</div>
         <p>${escapeHtml(p.description)}</p>
+        ${isCake ? kgStepper(p.id, kg) : ""}
         <div class="buy-row">
-          <strong>${p.price} LEI</strong>
+          <strong class="js-price">${price} LEI</strong>
           <button type="button" data-add="${p.id}">Adaugă ${ICON.plus}</button>
         </div>
       </div>
     </article>`;
+}
+
+function kgStepper(id, kg) {
+    return `<div class="kg-stepper" role="group" aria-label="Alege greutatea tortului">
+          <button type="button" data-kg="${id}" data-dir="-1" aria-label="Scade greutatea"${kg <= CONFIG.cakeMinKg ? " disabled" : ""}>${ICON.minus}</button>
+          <span class="kg-value">${fmtKg(kg)} KG</span>
+          <button type="button" data-kg="${id}" data-dir="1" aria-label="Crește greutatea"${kg >= CONFIG.cakeMaxKg ? " disabled" : ""}>${ICON.plus}</button>
+        </div>`;
 }
 
 function boxCard(p) {
@@ -101,32 +146,40 @@ $("#singlesGrid").innerHTML = singles.map((p) => productCard(p, true)).join("");
 $("#boxTrack").innerHTML = boxes.map(boxCard).join("");
 
 /* ---------- Coș ---------- */
-const STORAGE_KEY = "dulce-cart-v1";
-let cart = [];          // [{ id, quantity }]
+const STORAGE_KEY = "dulce-cart-v2";
+let cart = [];          // [{ key, id, kg, quantity }]
 let orderSent = false;
 let selectedDate = null; // "YYYY-MM-DD"
 let selectedTime = null;
 let customerName = "";
 
 try { cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { cart = []; }
-cart = cart.filter((l) => allProducts.some((p) => p.id === l.id));
+cart = cart.filter((l) => l.key && byId(l.id));
 
 const saveCart = () => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch {} };
-const lines = () => cart.map((l) => ({ ...allProducts.find((p) => p.id === l.id), quantity: l.quantity }));
+const lines = () => cart.map((l) => {
+    const p = byId(l.id);
+    return p.type === "cake"
+        ? { ...p, ...l, price: cakePrice(p, l.kg), weight: `${fmtKg(l.kg)} KG` }
+        : { ...p, ...l };
+});
 const cartCount = () => cart.reduce((s, l) => s + l.quantity, 0);
 const cartTotal = () => lines().reduce((s, l) => s + l.price * l.quantity, 0);
 const hasCake = () => lines().some((l) => l.type === "cake");
 
 function addToCart(id) {
-    const found = cart.find((l) => l.id === id);
-    if (found) found.quantity += 1; else cart.push({ id, quantity: 1 });
+    const p = byId(id);
+    const kg = p.type === "cake" ? kgState[id] : null;
+    const key = kg ? `${id}-${kg}` : String(id);
+    const found = cart.find((l) => l.key === key);
+    if (found) found.quantity += 1; else cart.push({ key, id, kg, quantity: 1 });
     orderSent = false;
     saveCart();
     openDrawer();
 }
 
-function changeQuantity(id, delta) {
-    const line = cart.find((l) => l.id === id);
+function changeQuantity(key, delta) {
+    const line = cart.find((l) => l.key === key);
     if (!line) return;
     line.quantity += delta;
     cart = cart.filter((l) => l.quantity > 0);
@@ -134,8 +187,8 @@ function changeQuantity(id, delta) {
     renderDrawer();
 }
 
-function removeLine(id) {
-    cart = cart.filter((l) => l.id !== id);
+function removeLine(key) {
+    cart = cart.filter((l) => l.key !== key);
     saveCart();
     renderDrawer();
 }
@@ -211,14 +264,14 @@ function renderDrawer() {
         <strong>${escapeHtml(l.name)}</strong>
         <span>${escapeHtml(l.weight)} · ${l.price} lei</span>
         <div class="quantity">
-          <button type="button" data-qty="${l.id}" data-delta="-1" aria-label="Scade cantitatea">${ICON.minus}</button>
+          <button type="button" data-qty="${l.key}" data-delta="-1" aria-label="Scade cantitatea">${ICON.minus}</button>
           <b>${l.quantity}</b>
-          <button type="button" data-qty="${l.id}" data-delta="1" aria-label="Crește cantitatea">${ICON.plus}</button>
+          <button type="button" data-qty="${l.key}" data-delta="1" aria-label="Crește cantitatea">${ICON.plus}</button>
         </div>
       </div>
       <div class="line-total">
         <strong>${l.price * l.quantity} lei</strong>
-        <button type="button" data-remove="${l.id}" aria-label="Șterge">${ICON.trash}</button>
+        <button type="button" data-remove="${l.key}" aria-label="Șterge">${ICON.trash}</button>
       </div>
     </article>`).join("");
 
@@ -278,8 +331,9 @@ document.addEventListener("click", (e) => {
     const t = e.target.closest("button");
     if (!t) return;
     if (t.dataset.add) return addToCart(Number(t.dataset.add));
-    if (t.dataset.qty) return changeQuantity(Number(t.dataset.qty), Number(t.dataset.delta));
-    if (t.dataset.remove) return removeLine(Number(t.dataset.remove));
+    if (t.dataset.kg) return changeKg(Number(t.dataset.kg), Number(t.dataset.dir));
+    if (t.dataset.qty) return changeQuantity(t.dataset.qty, Number(t.dataset.delta));
+    if (t.dataset.remove) return removeLine(t.dataset.remove);
     if (t.dataset.date) { selectedDate = t.dataset.date; selectedTime = null; return renderDrawer(); }
     if (t.dataset.time) { selectedTime = t.dataset.time; return renderDrawer(); }
     if (t.hasAttribute("data-close")) return closeDrawer();
@@ -360,3 +414,4 @@ const observer = new IntersectionObserver((entries) => {
 
 /* ---------- Start ---------- */
 $("#cartCount").textContent = cartCount();
+$("#heroPrice").textContent = `de la ${cakePrice(cakes[1], CONFIG.cakeMinKg)} lei`;

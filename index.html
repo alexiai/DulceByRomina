@@ -54,14 +54,14 @@
     </div>
     <div class="hero-image">
         <img src="images/cake2.jpg" alt="Tort artizanal Dulce by Romina" />
-        <div class="hero-product"><small>Recomandarea săptămânii</small><strong>Tort Vanilla Berry</strong><span>de la 179 lei</span></div>
+        <div class="hero-product"><small>Recomandarea săptămânii</small><strong>Tort Vanilla Berry</strong><span id="heroPrice">de la 179 lei</span></div>
     </div>
 </section>
 
 <section class="shop-section" id="torturi">
     <div class="section-title">
         <div><p class="eyebrow">Comandă cu 48h înainte</p><h2>Torturi întregi</h2></div>
-        <p>Porții generoase pentru aniversări și momente care merită sărbătorite. Fiecare tort este finisat manual.</p>
+        <p>Porții generoase pentru aniversări și momente care merită sărbătorite. Fiecare tort este finisat manual. Alegi greutatea de la 1 la 4 kg.</p>
     </div>
     <div class="product-grid" id="cakesGrid"></div>
 </section>
@@ -97,7 +97,7 @@
         <div class="inquiry-head"><span>Solicită ofertă</span><small>Durează aproximativ 2 minute</small></div>
         <div class="form-grid">
             <label>Tip eveniment
-                <select id="eventType"><option>Nuntă</option><option>Botez</option><option>Aniversare</option><option>Corporate</option></select>
+                <select id="eventType"><option>Nuntă</option><option>Botez</option><option>Aniversare</option><option>Corporate</option><option>Altceva</option></select>
             </label>
             <label>Data evenimentului
                 <input type="date" id="eventDate" />
@@ -107,8 +107,8 @@
                     <label for="guests">Număr invitați</label>
                     <strong id="guestsValue">60 persoane</strong>
                 </div>
-                <input type="range" id="guests" min="20" max="250" step="5" value="60" />
-                <div class="guests-scale"><span>20</span><span>250</span></div>
+                <input type="range" id="guests" min="10" max="250" step="5" value="60" />
+                <div class="guests-scale"><span>10</span><span>250</span></div>
             </div>
             <label class="field-wide">Telefon
                 <input type="tel" id="eventPhone" placeholder="+40 7xx xxx xxx" required />
