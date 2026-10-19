@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dulce by Romina · Prăjituri artizanale</title>
+    <meta name="description" content="Torturi, monoporții, box-uri și candy bar de la Dulce by Romina. Comandă online și ridică din atelier." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body id="top">
+
+<div class="announcement">
+    <span>Comenzi online · Ridicare din atelier</span>
+    <strong>Strada Mărăști 51, Bacău</strong>
+</div>
+
+<header class="shop-header">
+    <a class="brand" href="#top"><img class="brand-logo" src="images/logo.png" alt="" /><span class="brand-text"><strong>Dulce</strong><span>by Romina</span></span></a>
+    <p>Prăjituri artizanale,<br />pregătite în loturi mici.</p>
+    <button class="cart-button" id="openCart" type="button" aria-label="Deschide coșul">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+        <span>Coșul meu</span>
+        <b id="cartCount">0</b>
+    </button>
+</header>
+
+<nav class="category-nav" aria-label="Categorii produse">
+    <div class="category-inner">
+        <span>Categorii</span>
+        <a href="#torturi">Torturi întregi</a>
+        <a href="#monoportii">Monoporții &amp; Eclere</a>
+        <a href="#boxuri">Box-uri mixte</a>
+        <a href="#evenimente">Candy Bar &amp; Evenimente</a>
+    </div>
+</nav>
+
+<section class="shop-hero">
+    <div class="hero-content">
+        <div>
+            <p class="eyebrow">Colecția săptămânii</p>
+            <h1>Bucurii dulci,<br /><em>gata de comandat.</em></h1>
+            <p class="hero-text">Alege deserturile preferate, rezervă în câteva click-uri și ridică-le proaspete din atelierul nostru.</p>
+            <a class="primary-button" href="#torturi">Vezi produsele <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m14 7 5 5-5 5"/></svg></a>
+        </div>
+        <ul>
+            <li><strong>01</strong><span>Pregătite proaspăt<br />în fiecare zi</span></li>
+            <li><strong>02</strong><span>Ingrediente premium,<br />fără compromisuri</span></li>
+            <li><strong>03</strong><span>Ridicare simplă<br />din atelier</span></li>
+        </ul>
+    </div>
+    <div class="hero-image">
+        <img src="images/cake2.jpg" alt="Tort artizanal Dulce by Romina" />
+        <div class="hero-product"><small>Recomandarea săptămânii</small><strong>Tort Vanilla Berry</strong><span>de la 179 lei</span></div>
+    </div>
+</section>
+
+<section class="shop-section" id="torturi">
+    <div class="section-title">
+        <div><p class="eyebrow">Comandă cu 48h înainte</p><h2>Torturi întregi</h2></div>
+        <p>Porții generoase pentru aniversări și momente care merită sărbătorite. Fiecare tort este finisat manual.</p>
+    </div>
+    <div class="product-grid" id="cakesGrid"></div>
+</section>
+
+<section class="shop-section singles-section" id="monoportii">
+    <div class="section-title">
+        <div><p class="eyebrow">Disponibile zilnic</p><h2>Monoporții &amp; deserturi</h2></div>
+        <p>Perfecte pentru o pauză dulce, un cadou spontan sau pentru a le împărți cu cei dragi.</p>
+    </div>
+    <div class="single-grid" id="singlesGrid"></div>
+</section>
+
+<section class="box-section" id="boxuri">
+    <div class="box-heading">
+        <div><p class="eyebrow">Selecții pregătite</p><h2>Platouri &amp; gift boxes</h2></div>
+        <div class="scroll-buttons">
+            <button type="button" id="boxPrev" aria-label="Derulează spre stânga">←</button>
+            <button type="button" id="boxNext" aria-label="Derulează spre dreapta">→</button>
+        </div>
+    </div>
+    <div class="box-track" id="boxTrack"></div>
+</section>
+
+<section class="event-section" id="evenimente">
+    <div class="event-intro">
+        <p class="eyebrow">Candy bar &amp; torturi custom</p>
+        <h2>Planificăm partea<br /><em>dulce a evenimentului.</em></h2>
+        <p class="event-text">Spune-ne câteva detalii și îți trimitem o propunere personalizată în maximum 2 zile lucrătoare.</p>
+        <div class="event-points"><span>Nunți</span><span>Botezuri</span><span>Petreceri private</span><span>Corporate</span></div>
+    </div>
+
+    <form class="inquiry-card" id="eventForm">
+        <div class="inquiry-head"><span>Solicită ofertă</span><small>Durează aproximativ 2 minute</small></div>
+        <div class="form-grid">
+            <label>Tip eveniment
+                <select id="eventType"><option>Nuntă</option><option>Botez</option><option>Aniversare</option><option>Corporate</option></select>
+            </label>
+            <label>Data evenimentului
+                <input type="date" id="eventDate" />
+            </label>
+            <div class="guests-field">
+                <div class="guests-head">
+                    <label for="guests">Număr invitați</label>
+                    <strong id="guestsValue">60 persoane</strong>
+                </div>
+                <input type="range" id="guests" min="20" max="250" step="5" value="60" />
+                <div class="guests-scale"><span>20</span><span>250</span></div>
+            </div>
+            <label class="field-wide">Telefon
+                <input type="tel" id="eventPhone" placeholder="+40 7xx xxx xxx" required />
+            </label>
+        </div>
+        <label class="upload-field">
+            <input type="file" id="eventFile" accept="image/*" />
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 14v6h14v-6"/></svg>
+            <span><strong id="uploadTitle">Încarcă model foto pentru tort</strong><small id="uploadHint">JPG, PNG · maximum 10 MB</small></span>
+        </label>
+        <div class="estimate">
+            <span>Estimare orientativă</span>
+            <strong id="estimateValue">—</strong>
+            <small>Oferta finală depinde de selecția deserturilor și decor.</small>
+        </div>
+        <button class="event-submit" type="submit">Trimite cererea <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m14 7 5 5-5 5"/></svg></button>
+    </form>
+</section>
+
+<footer>
+    <a class="brand" href="#top"><img class="brand-logo" src="images/logo.png" alt="" /><span class="brand-text"><strong>Dulce</strong><span>by Romina</span></span></a>
+    <div><strong>Atelier Dulce by Romina</strong><span>Strada Mărăști 51, Bacău</span></div>
+    <div><strong>Program ridicări</strong><span>Mar–Vin 10:00–18:00 · Sâm 09:00–16:00</span></div>
+    <p>Produsele noastre pot conține gluten, lactate, ouă, nuci și susan.</p>
+</footer>
+
+<div class="drawer-layer" id="drawerLayer" hidden>
+    <button class="drawer-scrim" id="drawerScrim" type="button" aria-label="Închide coșul"></button>
+    <aside class="cart-drawer" aria-label="Coș de cumpărături">
+        <div class="drawer-head">
+            <div><span>Comanda ta</span><h2>Coșul meu <small id="drawerCount">0 produse</small></h2></div>
+            <button type="button" id="closeCart" aria-label="Închide"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div id="drawerBody"></div>
+    </aside>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

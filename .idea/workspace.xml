@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7d35931c-55ef-4114-9565-57640a7dd04a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/images/box1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/box2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/box3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cake1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cake2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cake3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cake4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cake5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cake6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/choux.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/eclair.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/roll.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/tart.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="3KtczRlO3U1jMefwmxWXLFekLj0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Alexia\WebstormProjects\DulceByRomina\images" />
+      <recent name="C:\Users\Alexia\WebstormProjects\DulceByRomina" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-WS-252.27397.92" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7d35931c-55ef-4114-9565-57640a7dd04a" name="Changes" comment="" />
+      <created>1792380566942</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1792380566942</updated>
+      <workItem from="1792380568011" duration="4114000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
